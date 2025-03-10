@@ -2,7 +2,8 @@
 
 ## Run server
 
-1. Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/).
+1. Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/) and create `venv` with `uv venv`. Activate virtual environment with `.venv\Scripts\activate`. 
+2. Install dependencies: `uv add "mcp[cli]" httpx`
 2. Run Memgraph MCP server: `uv run server.py`.
 3. Install [Claude for Desktop](https://claude.ai/download).
 4. Add the Memgraph server to Claude config: 
