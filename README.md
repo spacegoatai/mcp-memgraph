@@ -44,5 +44,8 @@ Example config:
 
 ### run_query()
 Run a Cypher query against Memgraph
+
+## Resources
+
 ### get_schema()
 Get Memgraph schema information (run SHOW SCHEMA INFO; query) -> prerequisite: `--schema-info-enabled=true`.
