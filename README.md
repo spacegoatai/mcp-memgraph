@@ -49,3 +49,7 @@ Run a Cypher query against Memgraph
 
 ### get_schema()
 Get Memgraph schema information (run SHOW SCHEMA INFO; query) -> prerequisite: `--schema-info-enabled=true`.
+
+## Roadmap
+
+We just started working on the Memgraph MCP Server. Our goal is to provide a wider set of tools in the near future.
