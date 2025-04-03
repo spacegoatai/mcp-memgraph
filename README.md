@@ -2,6 +2,8 @@
 
 Memgraph MCP Server is a lightweight server implementation of the Model Context Protocol (MCP) designed to connect Memgraph with LLMs.
 
+![mcp-server](./mcp-server.png)
+
 ## ⚡ Quick start
 
 > 📹 [Memgraph MCP Server Quick Start video](https://www.youtube.com/watch?v=0Tjw5QWj_qY)
