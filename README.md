@@ -8,24 +8,24 @@ Memgraph MCP Server is a lightweight server implementation of the Model Context 
 
 > 📹 [Memgraph MCP Server Quick Start video](https://www.youtube.com/watch?v=0Tjw5QWj_qY)
 
-### 🐳 Automatic Docker Mode (Recommended)
+### 1. Run Memgraph Database
 
-The server can automatically manage a Memgraph Docker container for you:
+The easiest way to run Memgraph is using Docker Compose:
 
-1. Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/) and create `venv` with `uv venv`. 
-2. Activate virtual environment with `source .venv/bin/activate` (MacOS/Linux) or `.venv\Scripts\activate` (Windows).
-3. Install dependencies: `uv add "mcp[cli]" httpx neo4j`
-4. Run the auto-Docker server: `python server_with_docker.py`
+```bash
+docker-compose up -d
+```
 
-The server will:
-- Start a Memgraph container if none is running
-- Wait for Memgraph to be ready
-- Connect to the database
-- Clean up when shutting down
+This will start:
+- Memgraph MAGE with schema info enabled
+- Memgraph Lab (web UI) at http://localhost:3000
 
-### Manual Mode
+You can also run Memgraph manually:
+```bash
+docker run -p 7687:7687 -p 7444:7444 memgraph/memgraph-mage:latest --schema-info-enabled=true
+```
 
-#### 1. Configure Environment Variables
+### 2. Configure Environment Variables
 
 The server supports configuration through environment variables:
 
@@ -33,17 +33,15 @@ The server supports configuration through environment variables:
 export MEMGRAPH_URI="bolt://localhost:7687"  # Default
 export MEMGRAPH_USER="user"                  # Optional
 export MEMGRAPH_PASSWORD="password"          # Optional
-export MEMGRAPH_CONTAINER_NAME="memgraph-mcp" # For Docker mode
 ```
 
-#### 2. Run Memgraph MCP Server
+### 3. Run Memgraph MCP Server
 
-For manual mode (when you're managing Memgraph yourself):
-```bash
-python server.py
-```
+1. Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/) and create `venv` with `uv venv`. Activate virtual environment with `.venv\Scripts\activate`. 
+2. Install dependencies: `uv add "mcp[cli]" httpx`
+3. Run Memgraph MCP server: `uv run server.py`.
 
-#### 3. Run MCP Client
+### 4. Run MCP Client
 1. Install [Claude for Desktop](https://claude.ai/download).
 2. Add the Memgraph server to Claude config: 
 
@@ -58,41 +56,29 @@ code ~/Library/Application\ Support/Claude/claude_desktop_config.json
 code $env:AppData\Claude\claude_desktop_config.json
 ```
 
-Example config for auto-Docker mode:
+Example config:
 ```json
 {
     "mcpServers": {
       "memgraph": {
-        "command": "/path/to/python",
-        "args": ["/path/to/mcp-memgraph/server_with_docker.py"],
+        "command": "/path/to/uv",
+        "args": [
+            "--directory",
+            "/path/to/mcp-memgraph",
+            "run",
+            "server.py"
+        ],
         "env": {
             "MEMGRAPH_URI": "bolt://localhost:7687",
-            "MEMGRAPH_CONTAINER_NAME": "memgraph-mcp"
+            "MEMGRAPH_USER": "",
+            "MEMGRAPH_PASSWORD": ""
         }
      }
    }
 }
 ```
-
-Example config for manual mode:
-```json
-{
-    "mcpServers": {
-      "memgraph": {
-        "command": "/path/to/python",
-        "args": ["/path/to/mcp-memgraph/server.py"],
-        "env": {
-            "MEMGRAPH_URI": "bolt://localhost:7687",
-            "MEMGRAPH_USER": "user",
-            "MEMGRAPH_PASSWORD": "password"
-        }
-     }
-   }
-}
-```
-
 > [!NOTE]  
-> Replace paths with the appropriate values for your system.
+> You may need to put the full path to the uv executable in the command field. You can get this by running `which uv` on MacOS/Linux or `where uv` on Windows. Make sure you pass in the absolute path to your server.
 
 ## 🔧Tools
 
