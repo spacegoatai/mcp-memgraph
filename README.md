@@ -41,11 +41,28 @@ Example config:
             "/Users/katelatte/projects/mcp-memgraph",
             "run",
             "server.py"
+        ]
+     }
+   }
+}
+```
+
+For custom Memgraph configurations, you can optionally add environment variables:
+```
+{
+    "mcpServers": {
+      "mpc-memgraph": {
+        "command": "/Users/katelatte/.local/bin/uv",
+        "args": [
+            "--directory",
+            "/Users/katelatte/projects/mcp-memgraph",
+            "run",
+            "server.py"
         ],
         "env": {
-            "MEMGRAPH_URI": "bolt://localhost:7687",
-            "MEMGRAPH_USER": "",
-            "MEMGRAPH_PASSWORD": ""
+            "MEMGRAPH_URI": "bolt://custom-host:7687",
+            "MEMGRAPH_USER": "your_username",
+            "MEMGRAPH_PASSWORD": "your_password"
         }
      }
    }
